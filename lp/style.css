@@ -1,0 +1,709 @@
+/* ==========================================================================
+   ページ全体の挙動設定
+   ========================================================================== */
+html {
+    scroll-behavior: smooth; /* リンクをクリックしたときに滑らかにスクロールさせる設定 */
+}
+
+/* ==========================================================================
+   リセットCSS（ブラウザ独自の余白を消して計算を狂わせない設定）
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* 余白や線をサイズ（width）に含める設定（必須） */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    line-height: 1.5; /* 行間 */
+    letter-spacing: 0.05em;
+    -webkit-font-smoothing: antialiased; /* 文字の輪郭を滑らかにする */
+}
+
+img {
+    max-width: 100%; /* 画像が画面からはみ出るのを防ぐ */
+    height: auto;
+    vertical-align: middle;
+}
+
+a {
+    color: inherit;
+    text-decoration: none; /* リンクの下線を消す */
+}
+
+p {
+    letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   共通設定（全体のフォントや基本カラー）
+   ========================================================================== */
+body {
+    width: 100%;
+    max-width: 1400px; /* ここで最大幅（固定値）を指定 */
+    margin: 0 auto;    /* 左右の余白を自動（中央配置）にする */
+    font-family: Arial, sans-serif;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+/* マウスホバー時のエフェクト */
+a:hover {
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   ヘッダーのスタイル
+   ========================================================================== */
+.site-header {
+    position: fixed; /* 画面の一番上に固定 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    z-index: 100; /* メインビジュアルや他の要素より常に上に表示させる */
+    background-color: rgb(255, 255, 255); 
+    backdrop-filter: blur(10px); /* 背景をすりガラス状にぼかす最新のエフェクト */
+}
+
+.header-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* ロゴとメニューを両端に離して配置 */
+    align-items: center;
+}
+
+.header-logo {
+    padding-top: 40px;
+    padding-left: 50px;
+}
+
+.menu-btn {
+    /* ボタンの基本スタイル */
+    width: 100px;
+    height: 100px;
+    background-color: #ff2a2a;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: block;
+
+    position: fixed; /* または absolute */
+    top: 0;       /* 🌟 上からの距離（数値はデザインに合わせて調整） */
+    right: 0;     /* 🌟 右からの距離（上の top と数値を合わせると綺麗です） */
+  
+    /* 前回のスタイル（width, height, background等）はそのまま保持 */
+    z-index: 5;      /* メニューよりは下に配置 */
+
+    /* 3本線の描画 */
+    background-image: linear-gradient(
+        to bottom,
+        #fff 0%,    #fff 10%,    /* 1本目の白線（上から0%〜10%） */
+        transparent 10%, transparent 45%, /* 隙間 */
+        #fff 45%,   #fff 55%,    /* 2本目の白線（中央45%〜55%） */
+        transparent 55%, transparent 90%, /* 隙間 */
+        #fff 90%,   #fff 100%    /* 3本目の白線（下から90%〜100%） */
+    );
+
+    /* 線の幅や位置の微調整（余白を持たせる） */
+    background-size: 50px 30px; /* 3本線エリアの [横幅 縦幅] */
+    background-repeat: no-repeat;
+    background-position: center; /* ボタンの真ん中に配置 */
+}
+
+/* 全体の背景とレイアウト */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 375px;
+    height: 100vh;
+    background-color: #ff2a2a; /* 鮮やかな赤 */
+    box-sizing: border-box;
+    padding: 24px; /* 外側の余白 */
+    z-index: 100;
+  
+    /* 縦方向に要素を等間隔で配置 */
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    font-family: sans-serif;
+
+    /* 初期状態：透明にして、クリックを無効化しておく */
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.4s ease; /* 0.4秒かけてふわっと変化 */
+}
+
+/* このクラスが追加されたら表示する */
+.menu-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto; /* クリックできるようにする */
+}
+
+/* ヘッダー部分（ロゴと×ボタン） */
+.menu-header {
+    display: flex;
+    justify-content: space-between; /* 両端に寄せる */
+    align-items: flex-start;
+    width: 100%;
+}
+.logo {
+    display: flex;
+    flex-direction: column;
+}
+.logo-main {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1.1;
+}
+.logo-sub {
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* ×ボタン（疑似要素でスマートに作成） */
+.close-btn {
+    display: block; /* 隙間対策 */
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+.close-btn::before,
+.close-btn::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px; /* 線の太さ */
+    background-color: #fff;
+}
+.close-btn::before { transform: rotate(45deg); }
+.close-btn::after { transform: rotate(-45deg); }
+
+/* ナビゲーションメニュー */
+.menu-nav {
+    margin-top: 60px; /* ロゴからの距離 */
+    text-align: center;
+}
+.menu-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.menu-nav li {
+    margin-bottom: 24px; /* メニュー間の隙間 */
+}
+.menu-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* 無料体験ボタン */
+.menu-cta {
+    margin-top: 40px;
+    text-align: center;
+}
+/* 2重線風のデザインを box-shadow で表現 */
+.cta-btn {
+    display: inline-block; /* 隙間を制御するためblock化 */
+    padding: 16px 48px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #fff;
+    background: transparent;
+    position: relative;
+}
+
+/* 右と下だけに表示する、ずらした白線 */
+.cta-btn::after {
+    content: "";
+    position: absolute;
+  
+    /* ボタンと全く同じサイズにする */
+    top: -1px;     /* borderの太さ(1px)の分だけ外側に合わせる */
+    left: -1px;
+    width: 100%;
+    height: 100%;
+  
+    /* 右側と下側だけに白線を引く */
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+  
+    /* ここで右と下に数ピクセル分ずらす（4pxずらす場合の例） */
+    transform: translate(8px, 8px);
+  
+    /* ボタンのクリックを邪魔しないようにする設定 */
+    pointer-events: none;
+}
+
+/* ヘッダーのスマホ対応 */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 24px;
+    }
+    .nav-list {
+        gap: 20px; /* スマホではメニューの間隔を少し詰める */
+    }
+    .nav-list a {
+        font-size: 0.85rem;
+    }
+}
+
+/* ==========================================================================
+   フッターのスタイル
+   ========================================================================== */
+/* フッター全体の背景と余白 */
+.footer {
+  background-color: #e8e8e8;
+  color: #333333;
+  padding: 60px 20px 30px;
+}
+
+/* 4つのカラムを横並びにするコンテナ */
+.footer-container {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* 画面が狭いときは折り返す */
+  gap: 30px;
+}
+
+/* 各カラムの幅調整 */
+.footer-column {
+  flex: 1;
+  min-width: 160px; /* 最小幅を確保 */
+}
+
+/* 見出しのスタイル */
+.footer-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* リストのスタイル */
+.footer-list {
+  list-style-type: none;
+}
+
+.footer-list li {
+    margin-left: 10px;
+    margin-bottom: 8px;
+    line-height: 0.8;
+}
+
+.footer-list a {
+  text-decoration: none;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+
+/* コピーライトのスタイル */
+.footer-copyright {
+  text-align: center;
+  font-size: 10px;
+  margin-top: 50px;
+  padding-top: 20px;
+}
+
+/* ==========================================================================
+   3. スタイリッシュに見せるための余白・レイアウトの基本
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: 1400px; /* 画面が大きくなりすぎないように制限 */
+    margin: 0 auto;    /* 左右中央に配置 */
+    padding: 0 20px;   /* スマホ表示の時に左右に最低限の余白を作る */
+}
+
+section {
+    padding-top: 120px;
+}
+
+h2 {
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-align: center;
+    position: relative;
+    margin-bottom: 100px;
+}
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* 線の位置（調整） */
+    left: 50%;
+    transform: translateX(-50%); /* 中央に配置 */
+    width: 100px; /* 文字列に対する下線の長さ */
+    height: 3px; /* 線の太さ */
+    background-color: #333333; /* 線の色 */
+}
+
+/* ==========================================================================
+   3.5 メインビジュアル（ヒーローエリア）のスタイル
+   ========================================================================== */
+.hero {
+    width: 100%;
+    height: 820px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 100px;
+}
+
+.hero-container {
+    width: 100%;
+    max-width: 1400px;
+    height: 100%;
+    margin: 0 auto;
+    padding-left: 140px;
+    padding-top: 280px;
+    background: no-repeat url("img/mainvisual1_2.jpg");
+    background-position: right;
+    background-size: auto 100%;
+}
+.hero-container a {
+    display: inline-block;
+    margin-top: 30px;
+}
+
+.hero-trial-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 464px; /* ボタンの横幅 */
+  padding: 10px 0;
+  color: #fff; /* 文字の色（白） */
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #ff2a2a;
+  border-radius: 12px; /* 角丸の調整 */
+  box-shadow: 0 5px 0 #7a051c; /* ボタンの下の立体感（影） */
+}
+
+/* 矢印（＞）のアイコンを疑似要素で追加 */
+.hero-trial-btn::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  width: 16px;
+  height: 16px;
+  border-top: 3px solid #fff;
+  border-right: 3px solid #fff;
+  transform: rotate(45deg);
+}
+
+.white-text-shadow {
+    font-size: 46px;
+    font-weight: bold;
+    /*color: #000000;*/
+    letter-spacing: 0.1em;
+    line-height: 1.622em;
+    text-shadow: -1px 2px 5px white;
+}
+
+/* メインビジュアルのスマホ対応 */
+@media (max-width: 1024px) {
+    .hero-container {
+        padding: 0 24px;
+    }
+    .hero-scroll {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   4. reason セクションのスタイル
+   ========================================================================== */
+.reason-container {
+    width: 100%;
+    max-width: 1400px;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.reason-wrapper {
+    width: 100%;
+    height: auto;
+    background-color: #ff2a2a;
+}
+
+.reason-list {
+    width: 100%;
+    list-style-type: none;
+    padding: 80px 0 40px 0;
+}
+
+.reason-list-item {
+    width: 100%;
+    padding-bottom: 40px;
+}
+
+.reason-list-flex {
+    display: flex; /* 横並び */
+    width: 50%;
+    height: 200px;
+    background-color: #ffffff;
+    justify-content: center; /* 左右中央揃え */
+    align-items: center; /* 水平中央揃え */
+ }
+/* 奇数行 */
+.reason-list-item:nth-child(odd) .reason-list-flex {
+    border-top-right-radius: 20px; /* 背景の右上角丸 */
+    border-bottom-right-radius: 20px; /* 背景の右下角丸 */
+}
+/* 偶数行 */
+.reason-list-item:nth-child(even) .reason-list-flex {
+    border-top-left-radius: 20px; /* 背景の左上角丸 */
+    border-bottom-left-radius: 20px; /* 背景の左下角丸 */
+    margin-left: auto; /* コンテンツ右寄せ */
+}
+
+.reason-list-flex .text {
+    margin: 5px 0 0 30px;
+    text-align: left;
+}
+.reason-list-title {
+    font-weight: bold;
+    font-size: 28px;
+    color: #ff2a2a;
+    line-height: 1;
+}
+.reason-list-text {
+    font-size: 18px;
+}
+
+/* ==========================================================================
+   5. voice セクションのスタイル
+   ========================================================================== */
+.voice-container {
+    width: 100%;
+    max-width: 860px;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.voice-wrapper {
+    width: 100%;
+    height: auto;
+}
+
+.voice-list {
+    width: 100%;
+    list-style-type: none;
+    padding-bottom: 40px;
+}
+
+.voice-list-item {
+    width: 100%;
+    padding-bottom: 60px;
+}
+
+.voice-list-flex {
+    display: flex; /* 横並び */
+    width: 660px;
+    height: auto;
+    min-height: 136px;
+    justify-content: center; /* 左右中央揃え */
+ }
+.voice-list-name {
+   font-size: 12px; 
+   line-height: 1.2;
+   padding-top: 10px;
+}
+.voice-list-item:nth-child(odd) .voice-list-flex .text {
+    margin-left: 26px;
+}
+/* 偶数行 */
+.voice-list-item:nth-child(even) .voice-list-flex {
+    margin-left: auto; /* コンテンツ右寄せ */
+}
+/* 偶数行 */
+.voice-list-item:nth-child(even) .voice-list-flex .text {
+    margin-right: 26px;
+}
+
+.voice-list-flex .text {
+    max-width: 516px;
+    text-align: left;
+    position: relative;
+}
+
+.voice-list-text {
+    min-height: 136px;
+    font-size: 16px;
+    background-color: #e9f1fb;
+    border-radius: 20px; /* 吹き出しの四隅角丸 */
+    padding: 20px;
+    line-height: 1.5;
+}
+/* コメント吹き出し口を表示（奇数行） */
+.voice-list-item:nth-child(odd) .voice-list-flex .text:before {
+    content: "";
+    position: absolute;
+    top: 101px;
+    left: -30px;
+    margin-top: -15px;
+    border: 15px solid transparent;
+    border-right: 16px solid #e9f1fb;
+}
+/* コメント吹き出し口を表示（偶数行） */
+.voice-list-item:nth-child(even) .voice-list-flex .text:before {
+    content: "";
+    position: absolute;
+    top: 101px;
+    right: -30px;
+    margin-top: -15px;
+    border: 15px solid transparent;
+    border-left: 16px solid #e9f1fb;
+}
+
+/* ==========================================================================
+   6. summary セクションのスタイル
+   ========================================================================== */
+#summary {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    background: url("img/summary-bg.jpg") repeat top left;
+}
+.summary-container {
+    width: 100%;
+    max-width: 860px;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+.summary-list {
+    display: grid;
+    width: fit-content;
+    margin: 0 auto;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    list-style-type: none;
+}
+.summary-item {
+    min-height: 283px;
+    background-color: white;
+    border-radius: 20px; /* 吹き出しの四隅角丸 */
+    margin-bottom: 40px;
+    padding: 60px;
+}
+
+.summary-title {
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+.summary-english {
+    font-weight: bold;
+    line-height: 1.5;
+}
+.summary-text {
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: left;
+    margin-top: 30px;
+}
+
+/* ==========================================================================
+   7. apply セクションのスタイル
+   ========================================================================== */
+.apply-container {
+    text-align: center;
+    margin: 0 auto;   /* 中央寄せ */
+    padding-bottom: 120px;
+}
+
+.apply-copy {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+.apply-text {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+.trial-btn {
+    /* ボタンのサイズ */
+    width: 860px;
+
+    /* 背景色 */
+    background-color: #ff1a1a; 
+    
+    /* 文字の色、太さ、装飾の打ち消し */
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+
+  /* ボタンの内側の余白（上下、左右） */
+  padding: 10px 0;
+  
+  /* 角丸にする */
+  border-radius: 50px;
+  
+  /* 配置を整えるための設定 */
+  display: inline-block;
+  text-align: center;
+  
+  /* カーソルを乗せたときに指マークにする */
+  cursor: pointer;
+  
+  /* 文字のサイズ調整（お好みに合わせて変更可能） */
+  font-size: 28px;
+}
+/* ==========================================================================
+   8. レスポンシブ対応（スマホ表示）
+   ========================================================================== */
+/* PC用レイアウト：1025px以上で適用 */
+@media (max-width: 1025px) {
+    section {
+        padding: 80px 15px; /* スマホでは上下の余白を少し狭くする */
+    }
+    
+    .summary-list {
+        grid-template-columns: 1fr; /* スマホでは3並びから縦1列に変える */
+        gap: 0;
+    }
+    .summary-item {
+        min-height: auto;
+        padding: 30px;
+    }
+}
+
+/* ==========================================================================
+   8. スクロールアニメーション（フェードイン）のスタイル
+   ========================================================================== */
+/* アニメーション前の状態（最初は透明で、少し下に下がっている） */
+.js-fade {
+    opacity: 0;
+    transform: translateY(40px); /* 40px 下に下げておく */
+    transition: opacity 1.2s ease, transform 1.2s ease; /* 1.2秒かけて滑らかに変化 */
+}
+
+/* JavaScriptによって「is-active」というクラスがついた瞬間の状態 */
+.js-fade.is-active {
+    opacity: 1;
+    transform: translateY(0); /* 本来の正しい位置に戻る */
+}

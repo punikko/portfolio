@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBB英会話スクール</title>
+    <!-- font -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- script -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- ヘッダー（ナビゲーションメニュー） -->
+    <header class="site-header">
+        <div class="header-container">
+            <!-- ロゴ -->
+            <div class="header-logo">
+                <a href="#"><img src="img/header/logo-r.jpg" alt="BBB英会話スクール"/></a>
+            </div>
+            <!-- ハンバーガーメニュー -->
+            <nav class="header-nav">
+                <button class="menu-btn" id="open-btn" aria-label="メニュー"></button>
+                
+                <!-- メニュー画面（初期状態は非表示） -->
+                <div class="menu-overlay" id="menu-overlay">
+                    <!-- ヘッダー部分 -->
+                    <div class="menu-header">
+                        <div class="logo">
+                            <a href="#"><img src="img/header/logo-w.png" alt="BBB英会話スクール"/></a>
+                        </div>
+                        <button class="close-btn" id="close-btn" aria-label="メニューを閉じる"></button>
+                    </div>
+                    <!-- ナビゲーションメニュー -->
+                    <nav class="menu-nav">
+                        <ul>
+                            <li><a href="#">BBBが選ばれる理由</a></li>
+                            <li><a href="#">受講生の声</a></li>
+                            <li><a href="#">スクールの概要</a></li>
+                        </ul>
+                    </nav>
+                    <!-- 無料体験ボタン -->
+                     <div class="menu-cta">
+                        <a href="#" class="cta-btn">無料体験に申し込む</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- メインビジュアル -->
+        <div class="hero">
+            <div class="hero-container">
+                <p class="white-text-shadow">
+                    話して学ぼう！<br>
+                    BBB英会話スクール
+                </p>
+                <a href="#" class="hero-trial-btn">無料体験はこちら</a>
+            </div>
+        </div>
+
+        <!-- BBBが選ばれる理由セクション -->
+        <section id="reason">
+            <div class="reason-container">
+                <h2>BBBが選ばれる理由</h2>
+                <div class="reason-wrapper">
+                    <ul class="reason-list">
+                        <li class="reason-list-item">
+                            <div class="reason-list-flex">
+                                <figure class="reason-list-img"><img src="img/icon-pc.png" alt=""></figure>
+                                <div class="text">
+                                    <p class="reason-list-title">オンライン対応</p>
+                                    <p class="reason-list-text">24時間いつでも受講できる！</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="reason-list-item">
+                            <div class="reason-list-flex">
+                                <figure class="reason-list-img"><img src="img/icon-teacher.png" alt=""></figure>
+                                <div class="text">
+                                    <p class="reason-list-title">講師はネイティブ</p>
+                                    <p class="reason-list-text">お気に入りの講師が自由に選べる！</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 受講生の声セクション -->
+        <section id="voice">
+            <div class="voice-container">
+                <h2>受講生の声</h2>
+                <div class="voice-wrapper">
+                    <ul class="voice-list">
+                        <!-- 吹き出し（顔右側） -->
+                        <li class="voice-list-item">
+                            <div class="voice-list-flex">
+                                <figure class="voice-list-img">
+                                    <img src="img/icon-student1.png" alt="">
+                                    <p class="voice-list-name">○○○さん<br>大学生</p>
+                                </figure>
+                                <div class="text">
+                                    <p class="voice-list-text">
+                                        テキストテキストテキストテキストテキストテキストテキストテキストテキスト<br>
+                                        テキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- 吹き出し（顔左側） -->
+                        <li class="voice-list-item">
+                            <div class="voice-list-flex">
+                                <div class="text">
+                                    <p class="voice-list-text">
+                                        テキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+                                </div>
+                                <figure class="voice-list-img">
+                                    <img src="img/icon-student2.png" alt="">
+                                    <p class="voice-list-name">○○○さん<br>会社員</p>
+                                </figure>
+                            </div>
+                        </li>
+                        <!-- 吹き出し（顔右側） -->
+                        <li class="voice-list-item">
+                            <div class="voice-list-flex">
+                                <figure class="voice-list-img">
+                                    <img src="img/icon-student3.png" alt="">
+                                    <p class="voice-list-name">○○○さん<br>自営業</p>
+                                </figure>
+                                <div class="text">
+                                    <p class="voice-list-text">
+                                        テキストテキストテキストテキストテキストテキストテキストテキストテキスト<br>
+                                        テキストテキストテキストテキストテキストテキストテキストテキストテキスト<br>
+                                        テキストテキストテキストテキストテキストテキストテキストテキストテキスト<br>
+                                        テキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- スクールの概要セクション -->
+        <section id="summary">
+            <div class="summary-container">
+                <h2>スクールの概要</h2>
+                <ul class="summary-list">
+                    <li class="summary-item">
+                        <p class="summary-title">レッスン内容</p>
+                        <p class="summary-english">LESSON</p>
+                        <p class="summary-text">テキスト</p>
+                    </li>
+                    <li class="summary-item">
+                        <p class="summary-title">料金プラン</p>
+                        <p class="summary-english">PRICE</p>
+                        <p class="summary-text">テキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+                    </li>
+                    <li class="summary-item">
+                        <p class="summary-title">講師のご紹介</p>
+                        <p class="summary-english">TEACHER</p>
+                        <p class="summary-text">テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+                    </li>
+                    <li class="summary-item">
+                        <p class="summary-title">BBBのQ&A</p>
+                        <p class="summary-english">Q&A</p>
+                        <p class="summary-text">テキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 申し込みセクション -->
+        <section id="apply">
+            <div class="apply-container">
+                <p class="apply-copy">まずは無料で、BBBの英会話を試してみませんか？</p>
+                <p class="apply-text">今なら初月のレッスンを特別価格で受講できる割引クーポンをプレゼント！</p>
+                <a href="#" class="trial-btn">無料体験に申し込む</a>
+            </div>
+        </section>
+
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- コース一覧 -->
+             <div class="footer-column">
+                <h3 class="footer-title">コース一覧</h3>
+                <ul class="footer-list">
+                    <li><a href="#">スタンダードプラン</a></li>
+                    <li><a href="#">プレミアムプラン</a></li>
+                    <li><a href="#">短期集中プラン</a></li>
+                    <li><a href="#">日常英会話コース</a></li>
+                    <li><a href="#">ビジネス英会話コース</a></li>
+                </ul>
+            </div>
+
+            <!-- 講師紹介 -->
+            <div class="footer-column">
+                <h3 class="footer-title">講師紹介</h3>
+                <ul class="footer-list">
+                    <li><a href="#">講師について</a></li>
+                    <li><a href="#">講師一覧</a></li>
+                    <li><a href="#">講師を探す</a></li>
+                </ul>
+            </div>
+
+            <!-- 会社情報 -->
+            <div class="footer-column">
+                <h3 class="footer-title">会社情報</h3>
+                <ul class="footer-list">
+                    <li><a href="#">会社概要</a></li>
+                    <li><a href="#">採用情報</a></li>
+                </ul>
+            </div>
+
+            <!-- BBBについて -->
+            <div class="footer-column">
+                <h3 class="footer-title">BBBについて</h3>
+                <ul class="footer-list">
+                    <li><a href="#">よくあるご質問</a></li>
+                    <li><a href="#">ご利用規約</a></li>
+                    <li><a href="#">プライバシーポリシー</a></li>
+                    <li><a href="#">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- コピーライト -->
+        <div class="footer-copyright">&copy; BBB English School</div>
+    </footer>
+</body>
+</html>

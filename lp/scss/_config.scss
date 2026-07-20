@@ -1,0 +1,8 @@
+// _config.scss
+$breakpoint-sp: 1025px;
+
+@mixin sp {
+  @media (max-width: #{$breakpoint-sp}) {
+    @content;
+  }
+}

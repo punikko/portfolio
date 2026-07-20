@@ -581,9 +581,6 @@ h2::after {
     height: 100%;
     margin: 0 auto;
     text-align: center;
-    @include tb {
-        padding: 0 20px;
-    }
 }
 
 .voice-wrapper {
@@ -601,6 +598,9 @@ h2::after {
     width: 100%;
     padding-bottom: 60px;
 
+    @include tb {
+        padding: 0 20px 40px;
+    }
     @include sp {
         padding: 0 20px 40px;
     }
@@ -739,13 +739,12 @@ h2::after {
     height: auto;
     margin: 0 auto;
     text-align: center;
-    @include sp {
-        padding: 0 20px;
-    }
     @include tb {
         padding: 0 20px;
     }
-
+    @include sp {
+        padding: 0 20px;
+    }
 }
 
 .summary-list {
@@ -809,13 +808,12 @@ h2::after {
     margin: 0 auto;
     padding-bottom: 120px;
 
-    @include sp {
-        padding: 0 20px 80px;
-    }
     @include tb {
         padding: 0 20px 120px;
     }
-
+    @include sp {
+        padding: 0 20px 80px;
+    }
 }
 
 .apply-copy {

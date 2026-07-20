@@ -9,7 +9,7 @@ $breakpoint-tb: 860px;
 }
 
 @mixin tb {
-  @media (max-width: #{$breakpoint-tb}) {
+  @media (min-width: #{$breakpoint-sp+1}) and (max-width: #{$breakpoint-tb}) {
     @content;
   }
 }
